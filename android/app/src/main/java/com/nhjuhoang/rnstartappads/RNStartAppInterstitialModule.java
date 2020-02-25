@@ -47,7 +47,7 @@ public class RNStartAppInterstitialModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void show(final Promise promise) {
         try {
-            this.showAd(this.getInterstitial(), promise);
+            this.showAd(this.getInterstitial());
         } catch(Exception e) {
             promise.reject(e);
         }
@@ -92,23 +92,45 @@ public class RNStartAppInterstitialModule extends ReactContextBaseJavaModule {
         });
     }
 
-    private void showAd(final StartAppAd startappAd, final Promise promise) {
+    private void showAd(final StartAppAd startappAd) {
         startappAd.showAd(new AdDisplayListener() {
             @Override
             public void adDisplayed(Ad ad) {
-                promise.resolve("display_interstitial");
+                WritableMap params = Arguments.createMap();
+                sendEvent(
+                        getReactApplicationContext(),
+                        "adDisplayed",
+                        params
+                );
                 Log.d(TAG, "Ad displayed");
             }
             @Override
             public void adNotDisplayed(Ad ad) {
-                promise.reject(new Exception("Ad not displayed"));
+                WritableMap params = Arguments.createMap();
+                sendEvent(
+                        getReactApplicationContext(),
+                        "adNotDisplayed",
+                        params
+                );
                 Log.e(TAG, "Ad not displayed");
             }
             @Override
             public void adClicked(Ad ad) {
+                WritableMap params = Arguments.createMap();
+                sendEvent(
+                        getReactApplicationContext(),
+                        "adClicked",
+                        params
+                );
             }
             @Override
             public void adHidden(Ad ad) {
+                WritableMap params = Arguments.createMap();
+                sendEvent(
+                        getReactApplicationContext(),
+                        "adHidden",
+                        params
+                );
             }
         });
     }

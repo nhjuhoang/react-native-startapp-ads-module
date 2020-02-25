@@ -4,17 +4,16 @@ import { NativeModules, requireNativeComponent, NativeEventEmitter } from 'react
 
 const { RNStartAppAds } = NativeModules;
 
-const initialize = async (appId: string, useReturnAds: boolean) => {
-  await RNStartAppAds.initialize(appId, useReturnAds);
+
+const initialize = (appId: string, useReturnAds: boolean) => {
+  RNStartAppAds.initialize(appId, useReturnAds);
 }
 
-const setUserConsent = async (value: boolean) => {
-  await RNStartAppAds.setUserConsent();
+const setUserConsent = (value: boolean) => {
+  RNStartAppAds.setUserConsent();
 }
 
 export default {
   initialize,
   setUserConsent
 };
-
-export const Interstitial = './Interstitial';
