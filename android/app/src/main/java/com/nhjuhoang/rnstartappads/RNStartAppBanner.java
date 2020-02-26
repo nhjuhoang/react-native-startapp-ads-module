@@ -4,14 +4,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.startapp.android.publish.ads.banner.Banner;
 import com.startapp.android.publish.ads.banner.BannerListener;
 
-public class RNStartAppBanner extends Banner implements LifecycleEventListener, BannerListener {
+public class RNStartAppBanner extends Banner implements BannerListener {
 
 
     public static final String EVENT_AD_RECEIVE = "onReceiveAd";
@@ -24,7 +23,8 @@ public class RNStartAppBanner extends Banner implements LifecycleEventListener, 
         super(context);
         mContext = context;
         this.setBannerListener(this);
-        context.addLifecycleEventListener(this);
+        this.loadAd();
+        this.showBanner();
     }
 
     @Override
@@ -50,13 +50,6 @@ public class RNStartAppBanner extends Banner implements LifecycleEventListener, 
 
     @Override
     public void onReceiveAd(View banner) {
-        int width = banner.getWidth();
-        int height = banner.getHeight();
-        int left = banner.getLeft();
-        int top = banner.getTop();
-        banner.measure(width, height);
-        banner.layout(left, top, left + width, top + height);
-        this.showBanner();
         sendEvent(EVENT_AD_RECEIVE ,null);
     }
 
@@ -70,20 +63,6 @@ public class RNStartAppBanner extends Banner implements LifecycleEventListener, 
     public void onClick(View view) {
         WritableMap event = Arguments.createMap();
         sendEvent(EVENT_AD_CLICK ,event);
-    }
-
-    @Override
-    public void onHostResume() {
-    }
-
-    @Override
-    public void onHostPause() {
-
-    }
-
-    @Override
-    public void onHostDestroy() {
-        this.hideBanner();
     }
 
     private void sendEvent(String type, WritableMap payload) {

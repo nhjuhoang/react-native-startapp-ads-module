@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 
 import com.facebook.react.bridge.ReactMethod;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 public class RNStartAppAdsModule extends ReactContextBaseJavaModule {
@@ -22,6 +23,7 @@ public class RNStartAppAdsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initialize(final String appId, final boolean useReturnAds, final Promise promise) {
         try {
+            StartAppAd.disableSplash();
             StartAppSDK.init(this.getReactApplicationContext(), appId, useReturnAds);
             promise.resolve("Initialized success");
             Log.d(TAG, "Initialized success");

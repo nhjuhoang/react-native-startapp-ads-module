@@ -1,23 +1,33 @@
+// @flow
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import { requireNativeComponent } from 'react-native';
+import { requireNativeComponent, View } from 'react-native';
 
-function BannerAd({ ...props }) {
+const RNStartAppBannerView = requireNativeComponent('RNStartAppBannerView');
 
+type Props = {
+  onReceiveAd: Function,
+  onFailedToReceiveAd: Function,
+  onClick: Function,
+}
+
+function BannerAd({ onFailedToReceiveAd, onReceiveAd, onClick, ...props }: Props) {
   return (
     <RNStartAppBannerView
       {...props}
-      onReceiveAd={() => console.log('---- 👉🏼 onReceiveAd')}
-      onFailedToReceiveAd={() => console.log('---- 👉🏼 onFailedToReceiveAd')}
-      onClick={() => console.log('---- 👉🏼 onClick')}
+      onReceiveAd={onReceiveAd}
+      onFailedToReceiveAd={onFailedToReceiveAd}
+      onClick={onClick}
     />
   );
 }
 
-const RNStartAppBannerView = requireNativeComponent(
-  'RNStartAppBannerView',
-  BannerAd,
-);
+BannerAd.defaultProps = {
+  onReceiveAd: () => null,
+  onFailedToReceiveAd: () => null,
+  onClick: () => null,
+}
 
 BannerAd.propTypes = {
   onReceiveAd: PropTypes.func,

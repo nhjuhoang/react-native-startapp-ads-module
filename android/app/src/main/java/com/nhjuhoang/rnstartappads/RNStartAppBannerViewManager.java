@@ -24,7 +24,6 @@ public class RNStartAppBannerViewManager extends SimpleViewManager<RNStartAppBan
     @Override
     protected RNStartAppBanner createViewInstance(final ThemedReactContext reactContext) {
         rnStartAppBanner = new RNStartAppBanner(reactContext);
-        rnStartAppBanner.loadAd();
         return rnStartAppBanner;
     }
 
