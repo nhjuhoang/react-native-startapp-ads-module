@@ -7,14 +7,13 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 
 public class RNStartAppAdsPackage implements ReactPackage {
 
     @Override
-    public List<NativeModule> createNativeModules(
-            ReactApplicationContext reactContext) {
+    public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new RNStartAppAdsModule(reactContext));
         modules.add(new RNStartAppInterstitialModule(reactContext));
@@ -26,9 +25,12 @@ public class RNStartAppAdsPackage implements ReactPackage {
         return null;
     }
 
+
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+        List<ViewManager> viewManagers = new ArrayList<>();
+        viewManagers.add(new RNStartAppBannerViewManager());
+        return viewManagers;
     }
 
 }
