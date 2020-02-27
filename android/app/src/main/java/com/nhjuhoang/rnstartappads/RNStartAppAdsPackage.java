@@ -9,7 +9,6 @@ import com.facebook.react.uimanager.ViewManager;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class RNStartAppAdsPackage implements ReactPackage {
 
     @Override
@@ -25,11 +24,11 @@ public class RNStartAppAdsPackage implements ReactPackage {
         return null;
     }
 
-
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         List<ViewManager> viewManagers = new ArrayList<>();
         viewManagers.add(new RNStartAppBannerViewManager());
+        viewManagers.add(new RNStartAppNativeBannerViewManager());
         return viewManagers;
     }
 
