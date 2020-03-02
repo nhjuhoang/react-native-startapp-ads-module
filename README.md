@@ -1,5 +1,5 @@
 # react-native-startapp-ads
-
+<View>
 // initialize first
 import StartappAds from "react-native-startapp-ads-module";
 StartappAds.initialize('app ID', return ads: boolean);
@@ -35,6 +35,7 @@ import BannerNative from 'react-native-startapp-ads-module/BannerNative';
          {custom banner native}
       </View>
 </BannerNative>
+</View>
 
 
 
