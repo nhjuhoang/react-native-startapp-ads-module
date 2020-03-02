@@ -10,7 +10,8 @@
 
 ```javascript
   import StartappAds from "react-native-startapp-ads-module";
-  StartappAds.initialize('app ID', return ads: boolean);
+  StartappAds.initialize('app id', 'return ads);
+  StartappAds.initialize('123456', true);
 ```
 
 
