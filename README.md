@@ -50,8 +50,5 @@
         </View>
       </BannerNative>
 ```
-
-
-
-
-
+## TODOS
+- [ ] supported IOS
