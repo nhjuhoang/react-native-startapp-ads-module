@@ -3,12 +3,13 @@ package com.nhjuhoang.rnstartappads;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.ViewGroupManager;
 
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-public class RNStartAppBannerViewManager extends SimpleViewManager<RNStartAppBanner> {
+public class RNStartAppBannerViewManager extends ViewGroupManager<RNStartAppBanner> {
 
     private static final String TAG = "RNStartAppBannerView";
 

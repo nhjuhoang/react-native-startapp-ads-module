@@ -7,29 +7,31 @@ import { requireNativeComponent, View } from 'react-native';
 const RNStartAppNativeBanner = requireNativeComponent('RNStartAppNativeBanner');
 
 type Props = {
-  onReceiveAd: (data: Object) => null,
+  onReceiveAd: () => null,
   onFailedToReceiveAd: Function,
 }
 
-function BannerAd({ onFailedToReceiveAd, onReceiveAd, onClick, children }: Props) {
+const BannerNativeAd = ({ onFailedToReceiveAd, onReceiveAd, children }: Props) => {
   return (
     <RNStartAppNativeBanner
       onReceiveAd={onReceiveAd}
       onFailedToReceiveAd={onFailedToReceiveAd}
     >
-      {children}
+      <View>
+        {children}
+      </View>
     </RNStartAppNativeBanner>
   );
 }
 
-BannerAd.defaultProps = {
-  onReceiveAd: (data: Object) => null,
+BannerNativeAd.defaultProps = {
+  onReceiveAd: () => null,
   onFailedToReceiveAd: () => null,
 }
 
-BannerAd.propTypes = {
+BannerNativeAd.propTypes = {
   onReceiveAd: PropTypes.func,
   onFailedToReceiveAd: PropTypes.func,
 };
 
-export default BannerAd;
+export default BannerNativeAd;

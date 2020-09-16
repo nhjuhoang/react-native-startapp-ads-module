@@ -23,8 +23,8 @@ public class RNStartAppAdsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initialize(final String appId, final boolean useReturnAds, final Promise promise) {
         try {
-            StartAppAd.disableSplash();
             StartAppSDK.init(this.getReactApplicationContext(), appId, useReturnAds);
+            StartAppAd.disableSplash();
             promise.resolve("Initialized success");
             Log.d(TAG, "Initialized success");
         } catch (Exception e) {
