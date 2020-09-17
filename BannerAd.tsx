@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { requireNativeComponent, View } from 'react-native';
+import { requireNativeComponent, ViewStyle } from 'react-native';
 
 const RNStartAppBannerView = requireNativeComponent('RNStartAppBannerView');
 
@@ -8,6 +8,7 @@ type Props = {
   onReceiveAd: Function,
   onFailedToReceiveAd: Function,
   onClick: Function,
+  style: ViewStyle
 }
 
 function BannerAd({ onFailedToReceiveAd, onReceiveAd, onClick, ...props }: Props) {
