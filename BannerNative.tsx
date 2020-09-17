@@ -1,6 +1,4 @@
-// @flow
-
-import React, { Children } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { requireNativeComponent, View } from 'react-native';
 
@@ -9,6 +7,7 @@ const RNStartAppNativeBanner = requireNativeComponent('RNStartAppNativeBanner');
 type Props = {
   onReceiveAd: () => null,
   onFailedToReceiveAd: Function,
+  children: React.ReactNode
 }
 
 const BannerNativeAd = ({ onFailedToReceiveAd, onReceiveAd, children }: Props) => {
