@@ -1,5 +1,6 @@
 package com.nhjuhoang.rnstartappads;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.util.Base64;
 import android.util.Log;
@@ -9,11 +10,11 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
-import com.startapp.android.publish.ads.nativead.NativeAdDetails;
-import com.startapp.android.publish.ads.nativead.NativeAdPreferences;
-import com.startapp.android.publish.ads.nativead.StartAppNativeAd;
-import com.startapp.android.publish.adsCommon.Ad;
-import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
+import com.startapp.sdk.ads.nativead.NativeAdDetails;
+import com.startapp.sdk.ads.nativead.NativeAdPreferences;
+import com.startapp.sdk.ads.nativead.StartAppNativeAd;
+import com.startapp.sdk.adsbase.Ad;
+import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class RNStartAppNativeBanner extends ReactViewGroup implements AdEventLis
         Log.d("ZOZOZOZOZOZOZOZOZO", "======= LOAD AD NATIVE ==========");
     }
 
+    @SuppressLint("WrongThread")
     public String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos =new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);

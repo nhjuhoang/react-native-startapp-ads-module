@@ -9,11 +9,18 @@ const initialize = (appId: string, useReturnAds: boolean) => {
   RNStartAppAds.initialize(appId, useReturnAds);
 }
 
-const setUserConsent = (value: boolean) => {
+const setUserConsent = () => {
   RNStartAppAds.setUserConsent();
 }
+
+const setTestAdsEnabled = (value: boolean) => {
+  RNStartAppAds.setTestAdsEnabled(value);
+}
+
+
 
 export default {
   initialize,
   setUserConsent,
+  setTestAdsEnabled,
 };

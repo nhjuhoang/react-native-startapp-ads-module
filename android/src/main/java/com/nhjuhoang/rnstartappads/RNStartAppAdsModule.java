@@ -7,8 +7,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 
 import com.facebook.react.bridge.ReactMethod;
-import com.startapp.android.publish.adsCommon.StartAppAd;
-import com.startapp.android.publish.adsCommon.StartAppSDK;
+
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppSDK;
 
 public class RNStartAppAdsModule extends ReactContextBaseJavaModule {
     private static final String TAG = "RNStartAppAds";
@@ -30,6 +31,14 @@ public class RNStartAppAdsModule extends ReactContextBaseJavaModule {
         } catch (Exception e) {
             promise.reject(e);
         }
+    }
+
+    @ReactMethod
+    public void setTestAdsEnabled(final Boolean testEnable) {
+        try {
+            StartAppSDK.setTestAdsEnabled(testEnable);
+            Log.d(TAG, "setTestAdsEnabled success");
+        } catch (Exception e) { }
     }
 
     @ReactMethod

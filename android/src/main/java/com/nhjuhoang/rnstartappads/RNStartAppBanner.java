@@ -8,9 +8,10 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.startapp.android.publish.ads.banner.Banner;
-import com.startapp.android.publish.ads.banner.BannerListener;
-import com.startapp.android.publish.common.model.AdPreferences;
+
+import com.startapp.sdk.ads.banner.Banner;
+import com.startapp.sdk.ads.banner.BannerListener;
+import com.startapp.sdk.adsbase.model.AdPreferences;
 
 public class RNStartAppBanner extends RelativeLayout implements BannerListener {
 
@@ -26,7 +27,7 @@ public class RNStartAppBanner extends RelativeLayout implements BannerListener {
         super(context);
         mContext = context;
         AdPreferences prefs = new AdPreferences();
-        prefs.setAdTag("top_banner");
+        prefs.setAdTag("banner");
         bannerAd = new Banner(context, prefs);
         bannerAd.setBannerListener(this);
 
@@ -67,6 +68,11 @@ public class RNStartAppBanner extends RelativeLayout implements BannerListener {
         Log.d("ZOZOZOZOZOZOZOZOZO", "============= onFailedToReceiveAd =============");
         WritableMap event = Arguments.createMap();
         sendEvent(EVENT_AD_FAILED_TO_RECEIVE ,event);
+    }
+
+    @Override
+    public void onImpression(View view) {
+
     }
 
     @Override

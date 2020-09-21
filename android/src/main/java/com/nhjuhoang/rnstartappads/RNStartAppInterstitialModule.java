@@ -10,11 +10,12 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.startapp.android.publish.adsCommon.Ad;
-import com.startapp.android.publish.adsCommon.StartAppAd;
-import com.startapp.android.publish.adsCommon.StartAppAd.AdMode;
-import com.startapp.android.publish.adsCommon.adListeners.AdDisplayListener;
-import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
+
+import com.startapp.sdk.adsbase.Ad;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppAd.AdMode;
+import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
+import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
 
 import javax.annotation.Nullable;
 
