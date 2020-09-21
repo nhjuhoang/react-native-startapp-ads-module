@@ -9,8 +9,8 @@ const initialize = (appId: string, useReturnAds: boolean) => {
   RNStartAppAds.initialize(appId, useReturnAds);
 }
 
-const setUserConsent = () => {
-  RNStartAppAds.setUserConsent();
+const setUserConsent = (value: boolean) => {
+  RNStartAppAds.setUserConsent(value);
 }
 
 const setTestAdsEnabled = (value: boolean) => {
