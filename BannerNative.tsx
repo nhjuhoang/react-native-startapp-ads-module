@@ -1,19 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { requireNativeComponent, View } from 'react-native';
 
 const RNStartAppNativeBanner = requireNativeComponent('RNStartAppNativeBanner');
 
 type Props = {
-  onReceiveAd: () => null,
-  onFailedToReceiveAd: Function,
-  children: React.ReactNode
+  onReceiveAd: (data: AdDataType) => void,
+  onFailedToReceiveAd: () => void,
+  children?: React.ReactNode
 }
 
-const BannerNativeAd = ({ onFailedToReceiveAd, onReceiveAd, children }: Props) => {
+type AdDataType = {
+  Title: string
+  Description: string
+  Rating: number
+  ImageUrl: string
+  SecondaryImageUrl: string
+  Installs: string
+  Category: string
+  getPackacgeName: string
+  CampaignAction: string
+  ImageBitmap: string
+  SecondaryImageBitmap: string
+}
+
+function NativeBanner({ onFailedToReceiveAd, onReceiveAd, children }: Props) {
   return (
     <RNStartAppNativeBanner
-      onReceiveAd={onReceiveAd}
+      onReceiveAd={(data) => { onReceiveAd(data.nativeEvent); }}
       onFailedToReceiveAd={onFailedToReceiveAd}
     >
       <View>
@@ -23,14 +36,9 @@ const BannerNativeAd = ({ onFailedToReceiveAd, onReceiveAd, children }: Props) =
   );
 }
 
-BannerNativeAd.defaultProps = {
-  onReceiveAd: () => null,
-  onFailedToReceiveAd: () => null,
+NativeBanner.defaultProps = {
+  onReceiveAd: (data: AdDataType) => { },
+  onFailedToReceiveAd: () => { },
 }
 
-BannerNativeAd.propTypes = {
-  onReceiveAd: PropTypes.func,
-  onFailedToReceiveAd: PropTypes.func,
-};
-
-export default BannerNativeAd;
+export default NativeBanner

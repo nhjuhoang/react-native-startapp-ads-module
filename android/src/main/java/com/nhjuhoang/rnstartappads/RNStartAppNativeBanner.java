@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
@@ -25,7 +28,8 @@ public class RNStartAppNativeBanner extends ReactViewGroup implements AdEventLis
     public static final String EVENT_AD_FAILED_TO_RECEIVE = "onFailedToReceiveAd";
 
     private StartAppNativeAd startAppNativeAd;
-    private  AdEventListener adListener;
+    private AdEventListener adListener;
+    NativeAdDetails nativeAdDetails = null;
 
     public RNStartAppNativeBanner(ReactContext context) {
         super(context);
@@ -41,7 +45,7 @@ public class RNStartAppNativeBanner extends ReactViewGroup implements AdEventLis
                 .setAutoBitmapDownload(true)
                 .setPrimaryImageSize(2);
         startAppNativeAd.loadAd(nativePrefs, adListener);
-        Log.d("ZOZOZOZOZOZOZOZOZO", "======= LOAD AD NATIVE ==========");
+        Log.d("LOAD_AD", "======= LOAD BANNER NATIVE AD NATIVE ==========");
     }
 
     @SuppressLint("WrongThread")
@@ -53,33 +57,14 @@ public class RNStartAppNativeBanner extends ReactViewGroup implements AdEventLis
         return temp;
     }
 
-    private void sendEvent(String type, WritableMap payload) {
-        WritableMap event = Arguments.createMap();
-        event.putString("type", type);
-
-        if (payload != null) {
-            event.merge(payload);
-        }
-        ReactContext reactContext = (ReactContext) getContext();
-        reactContext.getJSModule(RCTEventEmitter.class)
-                .receiveEvent(this.getId(), type, event);
-    }
-
     @Override
     public void onReceiveAd(Ad ad) {
-        Log.d("ZOZOZOZOZOZOZOZOZO", "======= EVENT_AD_RECEIVE ==========");
 
         WritableMap params = Arguments.createMap();
-        NativeAdDetails nativeAdDetails = null;
         ArrayList<NativeAdDetails> nativeAdsList = startAppNativeAd.getNativeAds();
-        if (nativeAdsList.size() > 0) {
-            nativeAdDetails = nativeAdsList.get(0);
-        }
+        if (nativeAdsList.size() > 0) { nativeAdDetails = nativeAdsList.get(0); }
 
-        // Verify that an ad was retrieved
-        if (nativeAdDetails == null) {
-            return;
-        }
+        if (nativeAdDetails == null) { return; }
 
         params.putString("Title", nativeAdDetails.getTitle());
         params.putString("Description", nativeAdDetails.getDescription());
@@ -92,17 +77,39 @@ public class RNStartAppNativeBanner extends ReactViewGroup implements AdEventLis
         params.putString("CampaignAction", nativeAdDetails.getCampaignAction().toString());
         params.putString("ImageBitmap", BitMapToString(nativeAdDetails.getImageBitmap()));
         params.putString("SecondaryImageBitmap", BitMapToString(nativeAdDetails.getSecondaryImageBitmap()));
-
-        nativeAdDetails.registerViewForInteraction(this.getChildAt(0));
+        nativeAdDetails.registerViewForInteraction(this);
 
         sendEvent(EVENT_AD_RECEIVE, params);
+
+        Log.d("EVENT_AD_RECEIVE", "======= EVENT_AD_RECEIVE ==========");
+
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if(nativeAdDetails!= null){
+            nativeAdDetails.unregisterView();
+        }
     }
 
     @Override
     public void onFailedToReceiveAd(Ad ad) {
-        Log.d("ZOZOZOZOZOZOZOZOZO", "======= EVENT_AD_FAILED_TO_RECEIVE ==========");
+        Log.d("BANNER_NATIVE", "======= EVENT_AD_FAILED_TO_RECEIVE ==========");
         WritableMap params = Arguments.createMap();
         params.putString("message", "EVENT_AD_FAILED_TO_RECEIVE");
         sendEvent(EVENT_AD_FAILED_TO_RECEIVE, params);
+    }
+
+    private void sendEvent(String type, WritableMap payload) {
+        WritableMap event = Arguments.createMap();
+        event.putString("type", type);
+
+        if (payload != null) {
+            event.merge(payload);
+        }
+        ReactContext reactContext = (ReactContext) getContext();
+        reactContext.getJSModule(RCTEventEmitter.class)
+                .receiveEvent(this.getId(), type, event);
     }
 }
