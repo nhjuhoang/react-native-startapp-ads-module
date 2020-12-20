@@ -26,17 +26,14 @@ public class RNStartAppBanner extends RelativeLayout implements BannerListener {
     public RNStartAppBanner(ReactContext context) {
         super(context);
         mContext = context;
-        AdPreferences prefs = new AdPreferences();
-        prefs.setAdTag("banner");
-        bannerAd = new Banner(context, prefs);
+        bannerAd = new Banner(context);
+        RelativeLayout.LayoutParams LayoutParams= new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        LayoutParams.alignWithParent = true;
+        bannerAd.setLayoutParams(LayoutParams);
         bannerAd.setBannerListener(this);
-
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (getChildCount() == 0) addView(bannerAd);
         bannerAd.loadAd();
     }
 
@@ -48,17 +45,9 @@ public class RNStartAppBanner extends RelativeLayout implements BannerListener {
     }
 
     @Override
-    public void requestLayout() {
-        super.requestLayout();
-        if (getWidth()> 0 && getHeight() > 0) {
-            measure(getWidth(), getHeight());
-            layout(getLeft(), getTop(), getRight(), getBottom());
-        }
-    }
-
-    @Override
     public void onReceiveAd(View banner) {
         Log.d("ZOZOZOZOZOZOZOZOZO", "============= onReceiveAd =============");
+        this.addView(bannerAd);
         bannerAd.showBanner();
         sendEvent(EVENT_AD_RECEIVE ,null);
     }
