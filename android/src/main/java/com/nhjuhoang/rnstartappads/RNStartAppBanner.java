@@ -34,6 +34,11 @@ public class RNStartAppBanner extends RelativeLayout implements BannerListener {
         LayoutParams.alignWithParent = true;
         bannerAd.setLayoutParams(LayoutParams);
         bannerAd.setBannerListener(this);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         bannerAd.loadAd();
     }
 
@@ -47,6 +52,7 @@ public class RNStartAppBanner extends RelativeLayout implements BannerListener {
     @Override
     public void onReceiveAd(View banner) {
         Log.d("ZOZOZOZOZOZOZOZOZO", "============= onReceiveAd =============");
+        if(this.getChildCount() > 0) this.removeAllViews();
         this.addView(bannerAd);
         bannerAd.showBanner();
         sendEvent(EVENT_AD_RECEIVE ,null);
